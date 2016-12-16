@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watcher", "Watcher\Watcher.csproj", "{D9429B40-BB42-4F20-9FF9-B7332077D205}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatcherClassLibrary", "WatcherClassLibrary\WatcherClassLibrary.csproj", "{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9429B40-BB42-4F20-9FF9-B7332077D205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9429B40-BB42-4F20-9FF9-B7332077D205}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9429B40-BB42-4F20-9FF9-B7332077D205}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9429B40-BB42-4F20-9FF9-B7332077D205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
