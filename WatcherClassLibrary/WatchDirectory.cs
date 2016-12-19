@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 
 namespace WatcherClassLibrary
@@ -7,12 +8,19 @@ namespace WatcherClassLibrary
     {
         public void StartDirectoryWatcher()
         {
+            FileSystemWatcher();
+            Console.WriteLine("Press \'q\' to quit.");
+
+            while (Console.Read() != 'q') ;
+        }
+
+        public void FileSystemWatcher()
+        {
+            string folder = PrepareEnviorment();
+
             FileSystemWatcher watcher = new FileSystemWatcher();
 
-            if (!Directory.Exists("C:\\Directory"))
-                Directory.CreateDirectory("C:\\Directory");
-
-            string path = watcher.Path = "C:\\Directory";
+            watcher.Path = folder;
 
             watcher.Filter = "*.*";
 
@@ -25,49 +33,36 @@ namespace WatcherClassLibrary
             watcher.Changed += Watcher_Changed;
 
             watcher.EnableRaisingEvents = true;
-
-            Console.WriteLine("Press \'q\' to quit.");
-            while (Console.Read() != 'q') ;
         }
 
         private static void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
             Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-            string textFormFile = ReadTxtFile(e);
 
-            LoggerNlog logobj = new LoggerNlog();
-            logobj.LogInfoMessageFromString(textFormFile);
+            FileProcessor procesFile = new FileProcessor();
+            procesFile.process(e);
         }
 
-        //private static void Watcher_Changed(object sender, FileSystemEventArgs e)
-        //{
-        //    Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-
-        //    using (StreamReader readtext = new StreamReader(e.FullPath))
-        //    {
-        //        string readMeText = readtext.ReadToEnd();
-        //        Logger logger = LogManager.GetCurrentClassLogger();
-
-        //        logger.Info(readMeText);
-        //    }
-        //}
-
-        private static string ReadTxtFile(FileSystemEventArgs e)
+        public static string PrepareEnviorment()
         {
-          
+            var folder = ConfigurationManager.AppSettings["directory"];
 
-            try
+            if (!Directory.Exists(folder))
             {
-                using (StreamReader readtext = new StreamReader(e.FullPath))
+                try
                 {
-                    string readMeText = readtext.ReadLine();
-                    return readMeText;
+                    Directory.CreateDirectory(folder);
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (Exception e)
+                {
+                    throw e;
                 }
             }
-            catch (IOException ex)
-            {
-                throw;
-            }
+            return folder;
         }
     }
 }

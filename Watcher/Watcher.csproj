@@ -63,9 +63,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WatcherClassLibrary\WatcherClassLibrary.csproj">
+    <ProjectReference Include="..\WatcherClassLibrary\Watcher.Core.csproj">
       <Project>{a7a6f2b8-5145-461e-8949-f458af2a0e7b}</Project>
-      <Name>WatcherClassLibrary</Name>
+      <Name>Watcher.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

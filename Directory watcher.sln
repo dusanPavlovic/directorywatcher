@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watcher", "Watcher\Watcher.csproj", "{D9429B40-BB42-4F20-9FF9-B7332077D205}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatcherClassLibrary", "WatcherClassLibrary\WatcherClassLibrary.csproj", "{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watcher.Core", "WatcherClassLibrary\Watcher.Core.csproj", "{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
