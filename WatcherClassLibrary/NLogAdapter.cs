@@ -12,9 +12,9 @@ namespace WatcherClassLibrary
             throw new NotImplementedException();
         }
 
-        public void Error()
+        public void Error(string message)
         {
-            throw new NotImplementedException();
+            Logger.Error(message);
         }
 
         public void Fatal()

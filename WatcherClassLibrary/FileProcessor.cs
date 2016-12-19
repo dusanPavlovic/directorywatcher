@@ -1,59 +1,52 @@
-﻿using System.IO;
+﻿using System.Configuration;
+using System.IO;
 using System.Threading;
-using System.Timers;
 
 namespace WatcherClassLibrary
 {
     internal class FileProcessor
     {
+        private ILogg logger = new NLogAdapter();
 
-        ILogg logger = new NLogAdapter();
-
-
-        public void process(FileSystemEventArgs e)
+        public void Process(FileSystemEventArgs e)
         {
+            int retries = int.Parse(ConfigurationManager.AppSettings["retries"]);
 
-
-            System.Timers.Timer processTimer = new System.Timers.Timer();
-
-            string message = ReadFile(e);
-
-
-
-
-            if (message != null)
+            for (int i = 0; i < retries; i++)
             {
-                logger.Info(message);
-            }
-            
-            
+                try
+                {
+                    string message = ReadFile(e);
 
+                    LogInfoMessage(message);
+                    return;
+                }
+                catch (IOException ex)
+                {
+                    LogErrorMessage(ex.Message);
+
+                    Thread.Sleep(5000);
+                }
+            }
         }
 
-
-
-        public string ReadFile(FileSystemEventArgs e)
+        private string ReadFile(FileSystemEventArgs e)
         {
-            string filecontent = "text fo log2";
-            return filecontent;
-
-            //try
-            //{
-            //    using (StreamReader readtext = new StreamReader(e.FullPath))
-            //    {
-            //        string readMeText = readtext.ReadLine();
-            //        return readMeText;
-            //    }
-            //}
-            //catch (IOException ex)
-            //{
-            //    throw ex;
-            //}
+            using (StreamReader readtext = new StreamReader(e.FullPath))
+            {
+                string text = readtext.ReadLine();
+                return text;
+            }
         }
 
         public void LogInfoMessage(string message)
         {
             logger.Info(message);
+        }
+
+        public void LogErrorMessage(string messaage)
+        {
+            logger.Error(messaage);
         }
     }
 }

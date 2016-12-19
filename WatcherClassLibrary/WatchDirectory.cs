@@ -40,7 +40,7 @@ namespace WatcherClassLibrary
             Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
 
             FileProcessor procesFile = new FileProcessor();
-            procesFile.process(e);
+            procesFile.Process(e);
         }
 
         public static string PrepareEnviorment()
