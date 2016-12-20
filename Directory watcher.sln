@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watcher", "Watcher\Watcher.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watcher.Core", "WatcherClassLibrary\Watcher.Core.csproj", "{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watcher.Core.Test", "Watcher.Core.Test\Watcher.Core.Test.csproj", "{88AE9DDA-9BC3-41ED-988D-8E68BC7B8BE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7A6F2B8-5145-461E-8949-F458AF2A0E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88AE9DDA-9BC3-41ED-988D-8E68BC7B8BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88AE9DDA-9BC3-41ED-988D-8E68BC7B8BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88AE9DDA-9BC3-41ED-988D-8E68BC7B8BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88AE9DDA-9BC3-41ED-988D-8E68BC7B8BE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

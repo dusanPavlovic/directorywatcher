@@ -3,7 +3,7 @@ using System;
 
 namespace WatcherClassLibrary
 {
-    internal class NLogAdapter : ILogg
+    internal class NLogAdapter : ILog
     {
         private static ILogger Logger = LogManager.GetCurrentClassLogger();
 
@@ -17,9 +17,9 @@ namespace WatcherClassLibrary
             Logger.Error(message);
         }
 
-        public void Fatal()
+        public void Fatal(string message)
         {
-            throw new NotImplementedException();
+            Logger.Fatal(message);
         }
 
         public void Info(string message)

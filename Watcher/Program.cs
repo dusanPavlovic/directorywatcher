@@ -1,4 +1,6 @@
-﻿using WatcherClassLibrary;
+﻿using System;
+using System.Threading;
+using WatcherClassLibrary;
 
 namespace Watcher
 {
@@ -7,7 +9,13 @@ namespace Watcher
         private static void Main(string[] args)
         {
             WatchDirectory watchDir = new WatchDirectory();
-            watchDir.StartDirectoryWatcher();
+            
+            ThreadPool.QueueUserWorkItem((e) =>
+            {
+                watchDir.StartDirectoryWatcher();
+            });
+            var key = Console.ReadKey();
+            watchDir.Stop();
         }
     }
 }

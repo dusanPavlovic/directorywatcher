@@ -1,52 +1,84 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Threading;
 
 namespace WatcherClassLibrary
 {
-    internal class FileProcessor
+    internal class FileProcessor : IFileProcessor
     {
-        private ILogg logger = new NLogAdapter();
+        private ILog logger = new NLogAdapter();
 
-        public void Process(FileSystemEventArgs e)
+       
+
+        public void Process(string path)
         {
-            int retries = int.Parse(ConfigurationManager.AppSettings["retries"]);
-
-            for (int i = 0; i < retries; i++)
+            try
             {
-                try
-                {
-                    string message = ReadFile(e);
+                int retries = int.Parse(ConfigurationManager.AppSettings["retries"]);
 
-                    LogInfoMessage(message);
-                    return;
-                }
-                catch (IOException ex)
-                {
-                    LogErrorMessage(ex.Message);
 
-                    Thread.Sleep(5000);
+                for (int i = 0; i < retries; i++)
+                {
+                    try
+                    {
+                        string message = ReadFile(path);
+
+                        logger.Info(message);
+                        return;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        logger.Error(ex.Message);
+                        Thread.Sleep(5000);
+                    }
+                    catch (DirectoryNotFoundException ex)
+                    {
+                        logger.Error(ex.Message);
+                        Thread.Sleep(5000);
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        logger.Error(ex.Message);
+                        Thread.Sleep(5000);
+                    }
+                    catch (IOException ex)
+                    {
+                        logger.Error(ex.Message);
+                        Thread.Sleep(5000);
+                    }
                 }
+
+
             }
+            catch (ConfigurationErrorsException ex)
+            {
+                logger.Error(ex.Message);
+            }
+
+            catch (ArgumentNullException ex)
+            {
+                logger.Error(ex.Message);
+            }
+            catch (FormatException ex)
+            {
+                logger.Error(ex.Message);
+            }
+            catch (OverflowException ex)
+            {
+                logger.Error(ex.Message);
+            }
+
+
         }
 
-        private string ReadFile(FileSystemEventArgs e)
+        private string ReadFile(string path)
         {
-            using (StreamReader readtext = new StreamReader(e.FullPath))
+            using (StreamReader readtext = new StreamReader(path))
             {
                 string text = readtext.ReadLine();
                 return text;
             }
-        }
-
-        public void LogInfoMessage(string message)
-        {
-            logger.Info(message);
-        }
-
-        public void LogErrorMessage(string messaage)
-        {
-            logger.Error(messaage);
         }
     }
 }

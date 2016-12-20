@@ -1,6 +1,6 @@
 ﻿namespace WatcherClassLibrary
 {
-    internal interface ILogg
+    internal interface ILog
     {
         void Info(string message);
 
@@ -10,6 +10,6 @@
 
         void Warn();
 
-        void Fatal();
+        void Fatal(string message);
     }
 }

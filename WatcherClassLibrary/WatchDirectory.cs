@@ -1,26 +1,51 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Threading;
 
 namespace WatcherClassLibrary
 {
     public class WatchDirectory
     {
+        private ILog logger = new NLogAdapter();
+
+        private IFileProcessor _fileProcessor;
+
+        private bool isRunning = true;
+
+        public WatchDirectory() : this(new FileProcessor()) { }
+
+        public WatchDirectory(IFileProcessor fileProcessor)
+        {
+            this._fileProcessor = fileProcessor;
+        }
+
         public void StartDirectoryWatcher()
         {
             FileSystemWatcher();
-            Console.WriteLine("Press \'q\' to quit.");
-
-            while (Console.Read() != 'q') ;
+            while (isRunning)
+            {
+                Thread.Sleep(100);
+            }
         }
 
-        public void FileSystemWatcher()
+        public string WorkDirectory
         {
-            string folder = PrepareEnviorment();
+            get {  return ConfigurationManager.AppSettings["directory"]; }
+        }
+
+        public void Stop()
+        {
+            isRunning = false;
+        }
+
+        private void FileSystemWatcher()
+        {
+            PrepareEnviorment();
 
             FileSystemWatcher watcher = new FileSystemWatcher();
 
-            watcher.Path = folder;
+            watcher.Path = WorkDirectory;
 
             watcher.Filter = "*.*";
 
@@ -35,34 +60,37 @@ namespace WatcherClassLibrary
             watcher.EnableRaisingEvents = true;
         }
 
-        private static void Watcher_Changed(object sender, FileSystemEventArgs e)
+        private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
             Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-
-            FileProcessor procesFile = new FileProcessor();
-            procesFile.Process(e);
+            _fileProcessor.Process(e.FullPath);
         }
 
-        public static string PrepareEnviorment()
+        public void PrepareEnviorment()
         {
-            var folder = ConfigurationManager.AppSettings["directory"];
 
-            if (!Directory.Exists(folder))
+            if (!Directory.Exists(WorkDirectory))
             {
                 try
                 {
-                    Directory.CreateDirectory(folder);
+                    Directory.CreateDirectory(WorkDirectory);
                 }
                 catch (UnauthorizedAccessException e)
+                {
+                    // sve ide logger
+                    logger.Error(e.Message);
+                    Console.WriteLine(e.Message);
+                   
+                }
+                catch (IOException e)
                 {
                     Console.WriteLine(e.Message);
                 }
                 catch (Exception e)
                 {
-                    throw e;
+                    throw new Exception(e.Message);
                 }
             }
-            return folder;
         }
     }
 }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileProcessor.cs" />
+    <Compile Include="IFileProcessor.cs" />
     <Compile Include="ILogg.cs" />
     <Compile Include="NLogAdapter.cs" />
     <Compile Include="WatchDirectory.cs" />
