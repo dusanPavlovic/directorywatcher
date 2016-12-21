@@ -1,6 +1,6 @@
 ﻿namespace WatcherClassLibrary
 {
-    internal interface ILog
+    public interface ILog
     {
         void Info(string message);
 

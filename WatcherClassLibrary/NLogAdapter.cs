@@ -3,9 +3,11 @@ using System;
 
 namespace WatcherClassLibrary
 {
-    internal class NLogAdapter : ILog
+    public class NLogAdapter : ILog
     {
         private static ILogger Logger = LogManager.GetCurrentClassLogger();
+
+    
 
         public void Debug()
         {

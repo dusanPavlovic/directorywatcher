@@ -66,6 +66,9 @@
     <None Include="..\Watcher\App.config">
       <Link>App.config</Link>
     </None>
+    <None Include="..\Watcher\NLog.config">
+      <Link>NLog.config</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

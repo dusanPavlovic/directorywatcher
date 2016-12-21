@@ -5,11 +5,20 @@ using System.Threading;
 
 namespace WatcherClassLibrary
 {
-    internal class FileProcessor : IFileProcessor
+    public class FileProcessor : IFileProcessor
     {
         private ILog logger = new NLogAdapter();
 
-       
+
+        public FileProcessor(ILog _logger )
+        {
+            this.logger = _logger;
+        }
+
+        public FileProcessor() : this(new NLogAdapter())
+        {
+        }
+
 
         public void Process(string path)
         {

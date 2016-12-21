@@ -13,7 +13,9 @@ namespace WatcherClassLibrary
 
         private bool isRunning = true;
 
-        public WatchDirectory() : this(new FileProcessor()) { }
+        public WatchDirectory() : this(new FileProcessor())
+        {
+        }
 
         public WatchDirectory(IFileProcessor fileProcessor)
         {
@@ -22,7 +24,7 @@ namespace WatcherClassLibrary
 
         public void StartDirectoryWatcher()
         {
-            FileSystemWatcher();
+            WatcherInitialization();
             while (isRunning)
             {
                 Thread.Sleep(100);
@@ -31,7 +33,7 @@ namespace WatcherClassLibrary
 
         public string WorkDirectory
         {
-            get {  return ConfigurationManager.AppSettings["directory"]; }
+            get { return ConfigurationManager.AppSettings["directory"]; }
         }
 
         public void Stop()
@@ -39,7 +41,7 @@ namespace WatcherClassLibrary
             isRunning = false;
         }
 
-        private void FileSystemWatcher()
+        private void WatcherInitialization()
         {
             PrepareEnviorment();
 
@@ -68,27 +70,51 @@ namespace WatcherClassLibrary
 
         public void PrepareEnviorment()
         {
-
             if (!Directory.Exists(WorkDirectory))
             {
                 try
                 {
                     Directory.CreateDirectory(WorkDirectory);
                 }
+                catch (NotSupportedException e)
+                {
+                    logger.Error(e.Message);
+                    Console.WriteLine("Application could not prepare enviorment");
+                }
+                catch (DirectoryNotFoundException e)
+                {
+                    logger.Error(e.Message);
+                    Console.WriteLine("Application could not prepare enviorment");
+                }
+                catch (PathTooLongException e)
+                {
+                    logger.Error(e.Message);
+                    Console.WriteLine("Application could not prepare enviorment");
+                }
+                catch (ArgumentNullException e)
+                {
+                    logger.Error(e.Message);
+                    Console.WriteLine("Application could not prepare enviorment");
+                }
+                catch (ArgumentException e)
+                {
+                    logger.Error(e.Message);
+                    Console.WriteLine("Application could not prepare enviorment");
+                }
                 catch (UnauthorizedAccessException e)
                 {
-                    // sve ide logger
                     logger.Error(e.Message);
-                    Console.WriteLine(e.Message);
-                   
+                    Console.WriteLine("Application could not prepare enviorment");
                 }
                 catch (IOException e)
                 {
-                    Console.WriteLine(e.Message);
+                    logger.Error(e.Message);
+                    Console.WriteLine("Application could not prepare enviorment");
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message);
+                    logger.Error(e.Message);
+                    Console.WriteLine("Application could not prepare enviorment");
                 }
             }
         }
