@@ -7,8 +7,6 @@ namespace WatcherClassLibrary
     {
         private static ILogger Logger = LogManager.GetCurrentClassLogger();
 
-    
-
         public void Debug()
         {
             throw new NotImplementedException();

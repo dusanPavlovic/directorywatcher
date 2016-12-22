@@ -9,23 +9,21 @@ namespace WatcherClassLibrary
     {
         private ILog logger = new NLogAdapter();
 
-
-        public FileProcessor(ILog _logger )
+        public FileProcessor(ILog _logger)
         {
             this.logger = _logger;
         }
 
         public FileProcessor() : this(new NLogAdapter())
         {
+            
         }
-
 
         public void Process(string path)
         {
             try
             {
                 int retries = int.Parse(ConfigurationManager.AppSettings["retries"]);
-
 
                 for (int i = 0; i < retries; i++)
                 {
@@ -57,14 +55,11 @@ namespace WatcherClassLibrary
                         Thread.Sleep(5000);
                     }
                 }
-
-
             }
             catch (ConfigurationErrorsException ex)
             {
                 logger.Error(ex.Message);
             }
-
             catch (ArgumentNullException ex)
             {
                 logger.Error(ex.Message);
@@ -77,8 +72,6 @@ namespace WatcherClassLibrary
             {
                 logger.Error(ex.Message);
             }
-
-
         }
 
         private string ReadFile(string path)
