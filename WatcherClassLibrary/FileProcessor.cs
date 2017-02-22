@@ -78,7 +78,7 @@ namespace WatcherClassLibrary
         {
             using (StreamReader readtext = new StreamReader(path))
             {
-                string text = readtext.ReadLine();
+                string text = readtext.ReadToEnd();
                 return text;
             }
         }
